@@ -1,26 +1,26 @@
 """The Photoprism integration."""
-import asyncio
 import logging
 
 import aiophotoprism
+import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import (
-    CONF_NAME,
-    CONF_PASSWORD,
-    CONF_URL,
-    CONF_USERNAME,
-    CONF_VERIFY_SSL,
-    EVENT_HOMEASSISTANT_STOP,
-)
+from homeassistant.const import (CONF_NAME, CONF_PASSWORD, CONF_URL,
+                                 CONF_USERNAME, CONF_VERIFY_SSL)
 from homeassistant.core import HomeAssistant
-from homeassistant.exceptions import ConfigEntryNotReady
-from homeassistant.helpers.dispatcher import async_dispatcher_send
+from homeassistant.helpers import config_validation as cv
 
-from .const import DOMAIN
+from .const import DOMAIN, SERVICE_INDEX
 
 PLATFORMS = ["sensor"]
 
 _LOGGER = logging.getLogger(__name__)
+
+
+SERVICE_INDEX_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_NAME): cv.string,
+    }
+)
 
 
 async def async_setup(hass: HomeAssistant, config: dict):
@@ -50,5 +50,28 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.async_create_task(
             hass.config_entries.async_forward_entry_setup(entry, component)
         )
+
+    async def async_index(service):
+        name = service.data[CONF_NAME]
+        client = hass.data[DOMAIN][name]
+        return await client.index()
+
+    hass.services.async_register(
+        DOMAIN, SERVICE_INDEX, async_index, schema=SERVICE_INDEX_SCHEMA
+    )
+
+    return True
+
+
+async def async_unload_entry(hass, config_entry):
+    """Unload Transmission Entry from config_entry."""
+    client = hass.data[DOMAIN].pop(config_entry.entry_id)
+    client.close()
+
+    for platform in PLATFORMS:
+        await hass.config_entries.async_forward_entry_unload(config_entry, platform)
+
+    if not hass.data[DOMAIN]:
+        hass.services.async_remove(DOMAIN, SERVICE_INDEX)
 
     return True

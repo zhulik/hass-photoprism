@@ -12,3 +12,5 @@ RECONNECT_INTERVAL = timedelta(seconds=10)
 SCAN_INTERVAL = timedelta(seconds=30)
 
 PHOTO_SENSOR_DEFAULT_ICON = "mdi:image"
+
+SERVICE_INDEX = "index"

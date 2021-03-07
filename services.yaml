@@ -1,0 +1,7 @@
+---
+index:
+  description: Start indexing
+  fields:
+    name:
+      description: Instance name as entered during entry config
+      example: Photoprism

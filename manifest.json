@@ -1,6 +1,6 @@
 {
   "domain": "photoprism",
-  "name": "photoprism",
+  "name": "Photoprism",
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/photoprism",
   "requirements": ["aiophotoprism==0.1.1"],
