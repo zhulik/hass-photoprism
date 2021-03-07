@@ -3,24 +3,18 @@
 import logging
 
 import aiophotoprism
-
 from homeassistant.const import CONF_NAME
 from homeassistant.exceptions import PlatformNotReady
 from homeassistant.helpers.dispatcher import async_dispatcher_connect
 from homeassistant.helpers.entity import Entity
 from homeassistant.helpers.event import async_track_time_interval
-
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
     UpdateFailed,
 )
 
-from .const import (
-    DOMAIN,
-    SCAN_INTERVAL,
-    PHOTO_SENSOR_DEFAULT_ICON
-)
+from .const import DOMAIN, PHOTO_SENSOR_DEFAULT_ICON, SCAN_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -47,7 +41,10 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
             update_interval=SCAN_INTERVAL,
         )
         await coordinator.async_refresh()
-        dev = [PhotoCountSensor(coordinator, name, k, config.version) for k, v in config.count.items()]
+        dev = [
+            PhotoCountSensor(coordinator, name, k, config.version)
+            for k, v in config.count.items()
+        ]
         async_add_entities(dev)
 
     except aiophotoprism.exceptions.PhotoprismError as exception:
