@@ -34,7 +34,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
     async def async_update_data():
         try:
             return await photoprism.config()
-        except ApiError as err:
+        except aiophotoprism.exceptions.PhotoprismError as err:
             raise UpdateFailed(f"Error communicating with API: {err}")
 
     try:
