@@ -24,7 +24,7 @@ async def async_setup_entry(hass, config_entry, async_add_entities):
         try:
             return await photoprism.config()
         except aiophotoprism.exceptions.PhotoprismError as err:
-            raise UpdateFailed(f"Error communicating with API: {err}")
+            raise UpdateFailed from err
 
     try:
         config = await photoprism.config()

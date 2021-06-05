@@ -1,4 +1,4 @@
-"""Config flow for syncthing integration."""
+"""Config flow for Photoprism integration."""
 import logging
 
 import aiophotoprism
@@ -29,24 +29,24 @@ async def validate_input(hass: core.HomeAssistant, data):
         if entry.data[CONF_NAME] == data[CONF_NAME]:
             raise AlreadyConfigured
 
-    try:
-        async with aiophotoprism.Photoprism(
-            data[CONF_USERNAME],
-            data[CONF_PASSWORD],
-            url=data[CONF_URL],
-            verify_ssl=data[CONF_VERIFY_SSL],
-            loop=hass.loop,
-        ) as client:
-            await client.config()
-            return {"title": f"{data[CONF_NAME]} ({data[CONF_URL]})"}
-    except aiophotoprism.exceptions.PhotoprismUnauthorizedError as error:
-        raise InvalidAuth from error
-    except Exception as error:
-        raise CannotConnect from error
+    # try:
+    async with aiophotoprism.Photoprism(
+        data[CONF_USERNAME],
+        data[CONF_PASSWORD],
+        url=data[CONF_URL],
+        verify_ssl=data[CONF_VERIFY_SSL],
+        loop=hass.loop,
+    ) as client:
+        await client.config()
+        return {"title": f"{data[CONF_NAME]} ({data[CONF_URL]})"}
+    # except aiophotoprism.exceptions.PhotoprismUnauthorizedError as error:
+    #     raise InvalidAuth from error
+    # except Exception as error:
+    #     raise CannotConnect from error
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for syncthing."""
+    """Handle a config flow for photoprism."""
 
     VERSION = 1
 
