@@ -4,7 +4,7 @@
       "already_configured": "Устройство уже настроено"
     },
     "error": {
-      "cannot_connect": "Не возможно подключиться к серверу Photoprism.",
+      "cannot_connect": "Не удалось подключиться к серверу Photoprism.",
       "invalid_auth": "Неверная аутентификация",
       "unknown": "Неизвестная ошибка",
       "already_configured": "Сервис уже настроен"
@@ -18,7 +18,7 @@
           "username": "Имя пользователя",
           "password": "Пароль",
           "port": "Порт",
-          "verify_ssl": "Проверить SSL"
+          "verify_ssl": "Проверять SSL"
         }
       }
     }
