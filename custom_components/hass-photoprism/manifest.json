@@ -1,0 +1,14 @@
+{
+  "domain": "photoprism",
+  "name": "Photoprism",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/photoprism",
+  "requirements": ["aiophotoprism==0.2.0"],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": [],
+  "version": "1.0",
+  "codeowners": ["@zhulik"],
+  "quality_scale": "silver"
+}
