@@ -1,0 +1,27 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Устройство уже настроено"
+    },
+    "error": {
+      "cannot_connect": "Не удалось подключиться к серверу Photoprism.",
+      "invalid_auth": "Неверная аутентификация",
+      "unknown": "Неизвестная ошибка",
+      "already_configured": "Сервис уже настроен"
+    },
+    "step": {
+      "user": {
+        "title": "Настройка интеграции Photoprism",
+        "data": {
+          "name": "Имя",
+          "url": "URL",
+          "username": "Имя пользователя",
+          "password": "Пароль",
+          "port": "Порт",
+          "verify_ssl": "Проверять SSL"
+        }
+      }
+    }
+  },
+  "title": "Photoprism"
+}
