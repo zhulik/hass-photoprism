@@ -1,6 +1,5 @@
 """The Photoprism integration."""
 import logging
-
 import aiophotoprism
 import voluptuous as vol
 from homeassistant.config_entries import ConfigEntry
@@ -23,12 +22,12 @@ SERVICE_INDEX_SCHEMA = vol.Schema(
 )
 
 
-async def async_setup(hass: HomeAssistant, config: dict):
+async def async_setup(hass: HomeAssistant, config: dict) -> bool:
     """Set up the Photoprism component."""
     return True
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Photoprism from a config entry."""
     data = entry.data
 
@@ -46,10 +45,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     hass.data[DOMAIN][name] = client
 
-    for component in PLATFORMS:
-        hass.async_create_task(
-            hass.config_entries.async_forward_entry_setup(entry, component)
-        )
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     async def async_index(service):
         name = service.data[CONF_NAME]
@@ -63,7 +59,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     return True
 
 
-async def async_unload_entry(hass, config_entry):
+async def async_unload_entry(hass, config_entry) -> bool:
     """Unload Transmission Entry from config_entry."""
     client = hass.data[DOMAIN].pop(config_entry.entry_id)
     client.close()

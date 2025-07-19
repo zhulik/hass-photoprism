@@ -1,0 +1,27 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "Enheten redan konfigurerad"
+    },
+    "error": {
+      "cannot_connect": "Kan inte ansluta Photoprism server.",
+      "invalid_auth": "Felaktig inloggning",
+      "unknown": "Unexpected error",
+      "already_configured": "Service är redan konfigurerad"
+    },
+    "step": {
+      "user": {
+        "title": "Setup Photoprism integration",
+        "data": {
+          "name": "Namn",
+          "url": "URL",
+          "username": "Username",
+          "password": "Password",
+          "port": "Port",
+          "verify_ssl": "Verify SSL"
+        }
+      }
+    }
+  },
+  "title": "Photoprism"
+}
